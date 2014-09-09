@@ -21,3 +21,11 @@
 *.i*86
 *.x86_64
 *.hex
+
+# MS Visual Studio 2012 solution and project files
+*.opensdf
+*.sdf
+*.sln
+*.suo
+*.vcxproj
+*.filters
