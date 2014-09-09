@@ -28,3 +28,12 @@
 *.suo
 *.vcxproj
 *.filters
+
+# MS Visual Studio 2012 debug files
+*.tlog
+*.obj
+*.exe
+*.ilk
+*.lastbuildstate
+*.pdb
+*.idb
