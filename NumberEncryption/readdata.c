@@ -17,15 +17,15 @@ unsigned int:
 void readData(unsigned int *number, int *pos1, int *pos2)
 {
 
-	printf("\nPlease enter the 4 digit hexadecimal number :\n");
+	printf("\nPlease enter the 4 digit hexadecimal number : ");
 	scanf("%x",number);
 
 	do
 	{
 		printf("\nPlease enter the the bytes to be swapped (0-3)\n");
-		printf("First Byte:\n");
+		printf("First Byte: ");
 		scanf("%i",pos1);
-		printf("Second Byte:\n");
+		printf("Second Byte: ");
 		scanf("%i",pos2);
 	}
 	
