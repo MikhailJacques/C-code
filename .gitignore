@@ -23,7 +23,6 @@
 *.hex
 
 # MS Visual Studio 2012 solution and project files
-*.opensdf
 *.sdf
 *.sln
 *.suo
