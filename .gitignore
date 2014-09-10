@@ -1,26 +1,24 @@
-# Object files
+# Compiled Object files
+*.slo
+*.lo
 *.o
-*.ko
 *.obj
-*.elf
 
-# Libraries
-*.lib
-*.a
-
-# Shared objects (inc. Windows DLLs)
-*.dll
+# Compiled Dynamic libraries
 *.so
-*.so.*
 *.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
 
 # Executables
 *.exe
 *.out
 *.app
-*.i*86
-*.x86_64
-*.hex
 
 # MS Visual Studio 2012 solution and project files
 *.sdf
@@ -37,3 +35,8 @@
 *.lastbuildstate
 *.pdb
 *.idb
+*.ico
+*.rc
+*.filters
+*.ipch
+*.log
