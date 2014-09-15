@@ -28,6 +28,7 @@
 *.filters
 
 # MS Visual Studio 2012 debug files
+*.log
 *.tlog
 *.obj
 *.exe
@@ -39,5 +40,4 @@
 *.rc
 *.filters
 *.ipch
-*.log
-
+*.lo
