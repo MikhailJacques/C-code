@@ -1,4 +1,10 @@
 
+/* Designed and written by Mikhail Jacques
+Email: jacques.mikhail@gmail.com
+GitHub: https://github.com/MikhailJacques
+LinkedIn: https://www.linkedin.com/in/mikhailjacques
+*/
+
 #include "gauge.h"
 
 // This function is included ONLY for testing purposes
