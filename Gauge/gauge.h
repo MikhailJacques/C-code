@@ -3,8 +3,9 @@
 Email: jacques.mikhail@gmail.com
 GitHub: https://github.com/MikhailJacques
 LinkedIn: https://www.linkedin.com/in/mikhailjacques
+*/
 
-The readers-writers problem is a classical one in computer science.
+/* The readers-writers problem is a classical one in computer science.
 Assume we have a shared resource that can be accessed by readers,
 which do not modify the resource and writers, which can modify the resource.
 When a writer is modifying the resource, no-one else (reader or writer)
@@ -14,8 +15,7 @@ and another reader could read a partially modified (thus possibly inconsistent) 
 The readers-writers algorithm implemented in this gauge favors neither readers nor writers.
 All readers and writers are granted access to the resource in their order of arrival.
 If a writer arrives while readers are accessing the resource, it waits until those readers
-free the resource, and then modifies it. New readers arriving in the meantime will wait too.
-*/
+free the resource, and then modifies it. New readers arriving in the meantime will wait too. */
 
 #ifndef __gauge_h__
 #define __gauge_h__
@@ -156,5 +156,20 @@ typedef struct {
 	time_t timestamp;
 	unsigned int num_bytes;
 } Sample;
+
+/* Possible declaration of gauge type
+struct Gauge
+{
+	Gauge(unsigned int time_period, unsigned int precision)
+	~Gauge();
+	void gauge_rate();
+	...
+
+private:
+
+	unsigned int time_period;
+	unsigned int precision;
+	...
+}; */
 
 #endif

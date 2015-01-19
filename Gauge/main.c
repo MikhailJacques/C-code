@@ -1,3 +1,10 @@
+
+/* Designed and written by Mikhail Jacques
+Email: jacques.mikhail@gmail.com
+GitHub: https://github.com/MikhailJacques
+LinkedIn: https://www.linkedin.com/in/mikhailjacques
+*/
+
 #include "gauge.h"
 #include "reader.h"
 #include "writer.h"
@@ -14,7 +21,8 @@ int main()
 
 	do
 	{
-		printf("Enter an integer value representing a time period (measured in seconds)\nin the range [0-%d]: ", MAX_TIME_PERIOD);
+		printf("Enter an integer value representing a time period (measured in seconds)\nin the range [0-%d]: ", 
+			MAX_TIME_PERIOD);
 		#ifdef _WIN32
 		scanf_s("%d", &time_period);
 		#else

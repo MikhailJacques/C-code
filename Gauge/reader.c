@@ -1,4 +1,10 @@
 
+/* Designed and written by Mikhail Jacques
+Email: jacques.mikhail@gmail.com
+GitHub: https://github.com/MikhailJacques
+LinkedIn: https://www.linkedin.com/in/mikhailjacques
+*/
+
 #include "reader.h"
 #include "headers.h"
 
@@ -6,7 +12,7 @@ void * Reader(void * arg)
 {
 	int reader_id = (int) arg;
 	
-	for (int i = 0; i < 20; ++i)
+	for (int i = 0; i < NUM_ITERATIONS; ++i)
 	{
 		if (DEBUG)
 			printf("Reader %d is trying to access the gauge for reading its data.\n", reader_id);
@@ -24,6 +30,6 @@ void * Reader(void * arg)
 
 	pthread_exit(NULL);
 	
-	// A really unnecessary statement the only purpose of which is to eliminate compiler warnings
+	// A really unnecessary statement the only purpose of which is to eliminate MS VS 2013 compiler warnings
 	return NULL;	
 }
