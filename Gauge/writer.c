@@ -14,6 +14,7 @@ void * Writer(void * arg)
 
 		// Generate random number of bytes in an imaginary packet in the range [16, 64]
 		unsigned int num_bytes = 16 + rand() % 49;
+		// num_bytes = 10; // for testing
 
 		if (DEBUG)
 			printf("Writer %d has a new packet to add with %d bytes in it.\n", writer_id, num_bytes);
@@ -28,5 +29,8 @@ void * Writer(void * arg)
 		#endif
 	}
 
+	pthread_exit(NULL);
+
+	// A really unnecessary statement the only purpose of which is to eliminate compiler warnings
 	return NULL;
 }

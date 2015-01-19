@@ -77,6 +77,7 @@ gauge * constructGauge(unsigned int time_period, unsigned int precision)
 	// Set the total number of accumulated bytes to 0
 	// Set the timestamp of the "last" clear operation
 	// Reset the "circular" array
+	// Set the index into the "circular" array to -1
 	g->clear(g);
 
 	return g;
@@ -99,12 +100,61 @@ void count_packet(void * g, unsigned int num_bytes)
 	// Add bytes to the running sum total of all bytes added thus far
 	((gauge *)g)->total_num_bytes += num_bytes;
 
-	// Add bytes to the running sum total of bytes for calculating average rate over the period of the past X seconds
-	int index = getCurrentTime() % ((gauge *)g)->bytes_samples_size;
-	int index_next = (index + 1) % ((gauge *)g)->bytes_samples_size;
+	// There is a condition here which might result in erroneous readings. 
+	// The higher the precision of the byte rate sample, that is the shorter the time intervals into
+	// which the bytes are accumulated, the higher the chance for erroneous results to be produced. 
+	// For example, if the calculation of any given index results in skipping one or more indices 
+	// the elements indexed by those indices will retain their previous values which could ultimately 
+	// result in erroneous calculation of the average byte rate. 
+	// In order to prevent this, the values at the indices that are skipped must be set to zero. 
+
+	// Add bytes to the running sum total of bytes for calculating average rate over the past X seconds
+	int index_curr = getCurrentTime() % ((gauge *)g)->bytes_samples_size;
+
+
+	// !!! THE FOLLOWING BLOCK OF CODE IS STILL WORK IN PROGRESS !!!
+
+	// Check to see if it is the first time after the clear op
+	if (((gauge *)g)->index_prev == -1)
+	{
+		// Save the current index
+		((gauge *)g)->index_prev = index_curr;
+	}
+	// Check to see if the calculated value of the current index differs from the value of the previously saved 
+	// index since the last call to this function and act accordingly.
+	else if (((gauge *)g)->index_prev != index_curr)
+	{
+		// Note: If there has been a significant delay in the invocation of this function for a modulus operator 
+		// to produce the same value for index_curr as if there were no delay (the index_curr wrapped around at 
+		// least once) then this solution does not address the problem yet as the entire circular array must be reset.
+		unsigned int first = (((gauge *)g)->index_prev + 1) % ((gauge *)g)->bytes_samples_size;
+
+		unsigned int last = index_curr;
+
+		// Adjust direction of resetting
+		if (first > last)
+		{
+			unsigned int temp = first;
+			first = last;
+			last = temp;
+		}
+
+		// Reset skipped elements (if there are any) in the "circular" array
+		for (unsigned int i = first; i < last; ++i)
+		{
+			((gauge *)g)->bytes_samples[i] = 0;
+		}
+
+		// Save the current index for the next operation
+		((gauge *)g)->index_prev = index_curr;
+	}
+	// !!! THE ABOVE BLOCK OF CODE IS STILL WORK IN PROGRESS !!!
+
+
+	int index_next = (index_curr + 1) % ((gauge *)g)->bytes_samples_size;
 
 	// Add bytes to the running sum total of the bytes arrived over the past X seconds
-	((gauge *)g)->bytes_samples[index] += num_bytes;
+	((gauge *)g)->bytes_samples[index_curr] += num_bytes;
 	((gauge *)g)->bytes_samples[index_next] = 0;		// A little trick ;)
 
 	if (DEBUG)
@@ -196,6 +246,9 @@ int gauge_rate(void * g)
 		total += ((gauge *)g)->bytes_samples[i];
 	}
 
+	if (DEBUG)
+		printf("Total bytes accumulated over the past %d seconds %d\n", ((gauge *)g)->time_period, total);
+
 	((gauge *)g)->average_rate = total / ((gauge *)g)->time_period;
 
 	sem_wait(&((gauge *)g)->readers_mutex);			// Gain exclusive access to manipulate the readers' counter
@@ -277,4 +330,7 @@ void clear(void * g)
 	{
 		((gauge *)g)->bytes_samples[i] = 0;
 	}
+
+	// Reset the index into the bytes_samples circular array
+	((gauge *)g)->index_prev = -1;
 }

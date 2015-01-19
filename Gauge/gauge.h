@@ -59,6 +59,9 @@ typedef struct {
 	// Size of the "Circular" array of bytes 
 	unsigned int bytes_samples_size;
 
+	// Index into the bytes_samples circular array
+	int index_prev;
+
 
 	// BINARY SEMAPHORES (MUTEXES)
 

@@ -22,5 +22,8 @@ void * Reader(void * arg)
 		#endif
 	}
 
-	return NULL;
+	pthread_exit(NULL);
+	
+	// A really unnecessary statement the only purpose of which is to eliminate compiler warnings
+	return NULL;	
 }
