@@ -1,7 +1,6 @@
 
 #include <stdio.h>
 #include "led.h"
-#include "main.h"
 #include "state_machine.h"
 
 // The state function array holds a function pointer to the function which gets called for each state. 

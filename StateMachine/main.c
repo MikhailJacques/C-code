@@ -1,6 +1,5 @@
 
 #include <stdio.h>
-#include <stdbool.h>
 
 #include "state_machine.h"
 

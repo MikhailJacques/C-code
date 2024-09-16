@@ -12,8 +12,7 @@ typedef enum {
 // All the state machine’s variables are declared in the STATE_MACHINE_STRUCT.
 // A pointer to this struct gets passed in as the first variable to all the state machine functions, 
 // just like the 'this' object gets passed in the object-oriented world.
-typedef struct 
-{
+typedef struct {
     STATE_ENUM current_state;
 } STATE_MACHINE_STRUCT;
 
